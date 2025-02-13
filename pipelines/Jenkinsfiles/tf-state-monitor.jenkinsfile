@@ -1,0 +1,74 @@
+pipeline  {
+/* checks to see if there is terraform drift */
+  agent any
+  
+  environment {
+    PATH = "$WORKSPACE/bin:$PATH"
+    TF_PATH = 'terraform/mgmt'
+    TF_IN_AUTOMATION = 'true'
+  }
+
+  stages {
+
+    stage('Checkout Code') {
+      steps {
+        checkout scm
+      }
+    }
+
+/*    stage('Checking Terraform') {
+      steps { 
+        script {
+          sh '''
+          env
+          export PATH="$PATH:~/.local/bin"
+          cd $TF_PATH
+          echo "Runnin Checkov -d in $PWD"
+          checkov -d . --o junitxml --skip-check CKV_AWS_51,CKV_AWS_32,CKV_AWS_7,CKV_AWS_52,CKV_AWS_18
+          '''
+        }
+      }
+    }
+  */        
+    stage('Checking Terraform Freshness') {
+      steps {
+        script {
+          sh '''
+          cd $TF_PATH
+          echo "Running Terraform Init in $PWD" 
+          terraform init -no-color
+          echo "Selecting Terraform Workspace $TF_WORKSPACE"
+          echo "Running Terraform Plan to see if state is stale"
+          terraform plan -no-color | grep 'No changes. Infrastructure is up-to-date.'
+          '''
+         }
+      }
+    }
+
+  }
+
+/*  post {
+      failure {
+        script {
+          wrap([$class: 'BuildUser']){
+            def slack_mail = "${env.BUILD_USER_EMAIL}"
+            def slack_user = slack_mail.substring(0, slack_mail.lastIndexOf('@'))
+                    
+            slackSend channel: "@${slack_user}",
+            color: 'bad',
+            message: "Hello ${env.BUILD_USER}, something went wrong, please (<${env.BUILD_URL}|review the logs>)"
+          }
+        }
+    }
+  }  // END `/post` definition
+ */  
+  options {
+    durabilityHint('PERFORMANCE_OPTIMIZED')
+    timeout(time: 10, unit: 'MINUTES')
+  }
+
+  triggers {
+    cron('H H(0-6) * * *') // Run sometime after midnight before 6 am
+  }
+}
+
