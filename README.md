@@ -39,7 +39,7 @@ MacOS:
   tfenv install latest
   tfenv use latest
 ```
-6. Create an S3 bucket in your account to store the TF state file and update provider.tf with <bucket-name>
+6. Create an S3 bucket in your account to store the TF state file and update provider.tf with \<bucket-name\>
 ```
   aws s3api create-bucket -acl private -bucket <bucket-name>
 ```
