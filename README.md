@@ -26,13 +26,17 @@ MacOS:
 * export AWS_REGION=us-east-1
 ~~~~
 3. Install AWS CLI - homebrew
- `brew install awscli`
+
+  brew install awscli
 4. Install Helm CLI - homebrew
- `brew install helm`
+
+  brew install helm
 5. Install Terraform and tfenv - homebrew
- `brew install tfenv`
- `tfenv install latest`
- `tfenv use latest`
+
+  brew install tfenv
+  tfenv install latest
+  tfenv use latest
 6. Create an S3 bucket in your account to store the TF state file and update your provider.tf with that bucket name
- `aws s3api create-bucket -acl private -bucket <bucket-name>`
+
+  aws s3api create-bucket -acl private -bucket <bucket-name>
 7. Change to the /terraform directory; terraform init; terraform plan
