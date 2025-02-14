@@ -8,6 +8,7 @@ variable "vpcs" {
     public_subnets       = list(object({ cidr = string, az = string }))
     private_subnets      = list(object({ cidr = string, az = string }))
     needs_igw            = bool
+    env  = string
   }))
 }
 

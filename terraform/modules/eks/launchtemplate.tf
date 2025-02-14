@@ -1,8 +1,12 @@
 
+resource "time_sleep" "wait_30_seconds" {
+  create_duration = "120s" # waiting for eks to transition to running state before creating LT. LT uses the default sg for EKS
+}
+
 
 resource "aws_launch_template" "eks_nodegroup_lt" {
     for_each = var.eks_clusters
-  depends_on = [aws_eks_cluster.comet_cluster]
+  depends_on = [data.aws_security_group.eks_cluster_sg, aws_eks_cluster.comet_cluster]
   name       = "comet-${each.key}-eks-lt"
   # ebs_optimized = true
   # image_id = data.aws_ami.eks_nodegroup_ami.id # dont use image id when supplying ami type in node group resource
@@ -19,6 +23,7 @@ resource "aws_launch_template" "eks_nodegroup_lt" {
 #     # security_groups = [ each.value.sg, data.aws_security_group.eks_cluster_sg[each.key].id ]
 #   }
   vpc_security_group_ids = flatten([each.value.sg, data.aws_security_group.eks_cluster_sg[each.key].id])
+  # vpc_security_group_ids = flatten([each.value.sg])
   lifecycle {
     create_before_destroy = true
   }

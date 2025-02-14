@@ -15,6 +15,7 @@ resource "aws_eks_cluster" "comet_cluster" {
     endpoint_public_access  = true
     endpoint_private_access = true
     subnet_ids              = each.value.eks_private_subnets
+    security_group_ids = each.value.sg
   }
 
   depends_on = [aws_iam_role.eks_cluster_role]
