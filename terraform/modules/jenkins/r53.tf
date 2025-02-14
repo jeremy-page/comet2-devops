@@ -2,13 +2,13 @@
 
 # Hosted Zone
 resource "aws_route53_zone" "comet_zone" {
-  name = "black.icf-comet-cc.com"
+  name = var.zone_name #"black.icf-comet-cc.com"  
 }
 
 #  ACM Certificate for the domain & wildcard subdomain
 resource "aws_acm_certificate" "comet_cert" {
-  domain_name               = "black.icf-comet-cc.com"
-  subject_alternative_names = ["*.black.icf-comet-cc.com"]
+  domain_name               = var.acm_cert_domain #"black.icf-comet-cc.com" 
+  subject_alternative_names = var.acm_cert_alt_domain #["*.black.icf-comet-cc.com"] 
   validation_method         = "DNS"
 
   lifecycle {
@@ -34,7 +34,7 @@ resource "aws_route53_record" "comet_cert_validation" {
 }
 
 # Validate the ACM Certificate
-resource "aws_acm_certificate_validation" "comet_cert_validation" {
-  certificate_arn         = aws_acm_certificate.comet_cert.arn
-  validation_record_fqdns = [for record in aws_route53_record.comet_cert_validation : record.fqdn]
-}
+# resource "aws_acm_certificate_validation" "comet_cert_validation" {
+#   certificate_arn         = aws_acm_certificate.comet_cert.arn
+#   validation_record_fqdns = [for record in aws_route53_record.comet_cert_validation : record.fqdn]
+# }

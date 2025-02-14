@@ -6,6 +6,9 @@ resource "aws_subnet" "comet_public_sn" {
           vpc_id     = aws_vpc.comet_vpc[vpc_name].id
           cidr_block = subnet.cidr
           az         = subnet.az
+          type       = "public"
+          vpc_name   = vpc_name
+          env        = vpc_data.env
         }
       ]
     ]) : subnet_data.key => subnet_data
@@ -18,6 +21,8 @@ resource "aws_subnet" "comet_public_sn" {
 
   tags = {
     Name = each.key
+    "kubernetes.io/cluster/${each.value.env}-comet-cluster" = "shared"
+    "kubernetes.io/role/elb"                 = "1"
   }
 }
 
@@ -30,6 +35,9 @@ resource "aws_subnet" "comet_private_sn" {
           vpc_id     = aws_vpc.comet_vpc[vpc_name].id
           cidr_block = subnet.cidr
           az         = subnet.az
+          type       = "private"
+          vpc_name   = vpc_name
+          env        = vpc_data.env
         }
       ]
     ]) : subnet_data.key => subnet_data
@@ -41,6 +49,8 @@ resource "aws_subnet" "comet_private_sn" {
 
   tags = {
     Name = each.key
+    "kubernetes.io/cluster/${each.value.env}-comet-cluster" = "shared"
+    "kubernetes.io/role/internal-elb"         = "1"
   }
 }
 

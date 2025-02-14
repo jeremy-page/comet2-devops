@@ -1,4 +1,8 @@
 
+resource "time_sleep" "wait_30_seconds" {
+  create_duration = "120s" # waiting for eks to transition to running state before creating LT. LT uses the default sg for EKS
+}
+
 
 resource "aws_launch_template" "eks_nodegroup_lt" {
     for_each = var.eks_clusters

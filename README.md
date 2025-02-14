@@ -1,4 +1,4 @@
-
+#### TERRAFORM
 #List of infrastrucutre that gets created
  - 3 VPCs. mgmt, prod and non-prod
  - 12 Subnets (2 Pub, 2 Priv) for each VPC
@@ -13,6 +13,12 @@
  - SG rules
 
 ## How to Run
+# if runninf with target paramter, modules should follow this order
+
+- network
+- eks
+- jenkins
+- jumphost
 
 # Pre-req
 
@@ -28,6 +34,7 @@
 
 
 
+#### K8S
 
 ## Items to scripts (automate)
 
@@ -58,3 +65,8 @@
 ## Notes
 # Helm charts
 -  helm create jenkins
+
+# Service Mesh ??
+- best bet is istio
+
+yGvtgMREbHH59URQ56WQMD
