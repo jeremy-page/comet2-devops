@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins-config
+  namespace: jenkins
+data:
+  apply_config.sh: |
+    #!/bin/sh
+    sudo sh -c 'echo "2.0" > /var/jenkins_home/jenkins.install.UpgradeWizard.state'
+    echo "disable Setup Wizard"

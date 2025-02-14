@@ -50,6 +50,7 @@ module "eks" {
       nodegroup_max_size     = 2
       nodegroup_min_size     = 2
       sg = [module.network.mgmt_nodes_sg_id]
+      
     }
     prod = {
       eks_version           = "1.30"

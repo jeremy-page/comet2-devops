@@ -21,3 +21,21 @@
 3. Install AWS CLI - homebrew
 4. Install Helm CLI - homebrew
 5. Create an S3 bucket in your account to store the TF state file and update your provider.tf with that bucket name
+
+
+# After
+- update navy account with NS records for hosted zone
+
+
+
+
+## Commands to scripts
+
+# Jenkins
+helm repo add jenkins https://charts.jenkins.io
+helm repo update
+helm install jenkins-release jenkins/jenkins -n jenkins -f ./jenkins/values.yaml
+
+
+## Notes
+-  helm create jenkins
