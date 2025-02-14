@@ -73,3 +73,10 @@ module "eks" {
   }
   eks_nodegroup_instance_size = "t3.large"
 }
+
+
+module "jenkins" {
+
+  source = "./modules/jenkins"
+
+}
