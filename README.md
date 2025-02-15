@@ -29,7 +29,7 @@ MacOS:
 1. Create an AWS profile for the Comet account , if you have other profiles stored in your .aws/credentials
 2. Configure AWS profile:
 ~~~~
-* export AWS_PROFILE=comet-black-admin
+* export AWS_PROFILE=<name_of_profile> e.g comet-black-admin
 * export AWS_SECRET_ACCESS_KEY=<secret key>
 * export AWS_SESSION_TOKEN=<session token>
 * export AWS_REGION=us-east-1
@@ -64,8 +64,6 @@ MacOS:
 
 ## Items to scripts (automate)
 
-# EKS
-- modify cluster via terraform to include pub subnets on cluster not LT or nodegroup
 
 # Jenkins
 - helm repo add jenkins https://charts.jenkins.io
