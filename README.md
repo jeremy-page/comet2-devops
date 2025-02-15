@@ -12,9 +12,11 @@
  - 3 Launchtemplates
  - 3 Node Groups SGs for each nodegroup 
  - SG rules
+ - R53 hosted zone
+ - ACM cert
 
 ## How to Run
-# if runninf with target paramter, modules should follow this order
+# if running with target paramter, modules should follow this order
 
 - network
 - eks
@@ -54,7 +56,7 @@ MacOS:
 7. Change to the /terraform directory; terraform init; terraform plan
 
 # After
-- update navy account with NS records for hosted zone
+- update navy account with NS records for hosted zone??
 
 
 

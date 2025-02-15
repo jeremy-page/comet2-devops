@@ -34,39 +34,39 @@ resource "aws_security_group" "prod_nodes_sg" {
 
 # Allow MGMT Nodes to access NON-PROD Nodes on HTTP/HTTPS
 resource "aws_security_group_rule" "non_prod_from_mgmt_http" {
-  type              = "ingress"
-  from_port         = 80
-  to_port           = 80
-  protocol          = "tcp"
-  security_group_id = aws_security_group.non_prod_nodes_sg.id
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.non_prod_nodes_sg.id
   source_security_group_id = aws_security_group.mgmt_nodes_sg.id
 }
 
 resource "aws_security_group_rule" "non_prod_from_mgmt_https" {
-  type              = "ingress"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  security_group_id = aws_security_group.non_prod_nodes_sg.id
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.non_prod_nodes_sg.id
   source_security_group_id = aws_security_group.mgmt_nodes_sg.id
 }
 
 # Allow MGMT Nodes to access PROD Nodes on HTTP/HTTPS
 resource "aws_security_group_rule" "prod_from_mgmt_http" {
-  type              = "ingress"
-  from_port         = 80
-  to_port           = 80
-  protocol          = "tcp"
-  security_group_id = aws_security_group.prod_nodes_sg.id
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.prod_nodes_sg.id
   source_security_group_id = aws_security_group.mgmt_nodes_sg.id
 }
 
 resource "aws_security_group_rule" "prod_from_mgmt_https" {
-  type              = "ingress"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  security_group_id = aws_security_group.prod_nodes_sg.id
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.prod_nodes_sg.id
   source_security_group_id = aws_security_group.mgmt_nodes_sg.id
 }
 

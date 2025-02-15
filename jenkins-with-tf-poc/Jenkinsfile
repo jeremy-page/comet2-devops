@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    sh 'echo "Starting Build Stage"'
+                    sh 'uname -a'  // Check system info
+                    sh 'echo "Build complete!"'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh 'echo "Running Tests..."'
+                    sh 'ls -l'  // List files
+                    sh 'echo "Tests completed!"'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'echo "Deploying Application..."'
+                    sh 'uptime'  // Show system uptime
+                    sh 'echo "Deployment successful!"'
+                }
+            }
+        }
+    }
+}

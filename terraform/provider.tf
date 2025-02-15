@@ -22,9 +22,9 @@ provider "aws" {
   region = "us-east-1"
   default_tags {
     tags = {
-    #   environment = "global"
-      contact     = "devops@icf.com"
-      project     = "comet"
+      #   environment = "global"
+      contact = "devops@icf.com"
+      project = "comet"
     }
   }
 

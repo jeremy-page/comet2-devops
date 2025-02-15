@@ -1,6 +1,6 @@
 resource "aws_iam_role" "eks_cluster_role" {
   for_each = var.eks_clusters
-  name = "comet-${each.key}-eks-role"
+  name     = "comet-${each.key}-eks-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "eks_nodes_assume_role" {
 
 
 resource "aws_iam_role" "eks_node_role" {
-    for_each = var.eks_clusters
+  for_each           = var.eks_clusters
   name               = "comet-${each.key}-eks-nodegroup-role"
   assume_role_policy = data.aws_iam_policy_document.eks_nodes_assume_role.json
   managed_policy_arns = [
@@ -48,12 +48,12 @@ resource "aws_iam_role" "eks_node_role" {
     "arn:aws:iam::aws:policy/CloudWatchFullAccess",
     "arn:aws:iam::aws:policy/AmazonS3FullAccess",
     "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
-    
+
   ]
 }
 
 resource "aws_iam_instance_profile" "eks_node_instance_profile" {
-    for_each = var.eks_clusters
-  name = "comet-${each.key}-eks-nodegroup-instance-profile"
-  role = aws_iam_role.eks_node_role[each.key].name
+  for_each = var.eks_clusters
+  name     = "comet-${each.key}-eks-nodegroup-instance-profile"
+  role     = aws_iam_role.eks_node_role[each.key].name
 }

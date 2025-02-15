@@ -1,11 +1,11 @@
 resource "aws_key_pair" "ec2_key" {
-  count   = length(var.eks_clusters)
-  key_name   = "ec2-jumphost-key-${var.eks_clusters[count.index]}"
-  public_key = tls_private_key.ec2_key[count.index].public_key_openssh
+  for_each   = var.env
+  key_name   = "ec2-jumphost-key-${each.key}"
+  public_key = tls_private_key.ec2_key[each.key].public_key_openssh
 }
 
 resource "tls_private_key" "ec2_key" {
-  count = length(var.eks_clusters)
+  for_each  = var.env
   algorithm = "RSA"
   rsa_bits  = 2048
 }
@@ -22,8 +22,8 @@ resource "tls_private_key" "ec2_key" {
 # }
 
 resource "aws_ssm_parameter" "ec2_key_param" {
-  count = length(var.eks_clusters)
-  name  = "ec2-jumphost-key-${var.eks_clusters[count.index]}"
-  type  = "SecureString"
-  value = tls_private_key.ec2_key[count.index].private_key_pem
+  for_each = var.env
+  name     = "ec2-jumphost-key-${each.key}"
+  type     = "SecureString"
+  value    = tls_private_key.ec2_key[each.key].private_key_pem
 }

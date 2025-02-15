@@ -8,7 +8,7 @@ variable "vpcs" {
     public_subnets       = list(object({ cidr = string, az = string }))
     private_subnets      = list(object({ cidr = string, az = string }))
     needs_igw            = bool
-    env  = string
+    env                  = string
   }))
 }
 
@@ -22,11 +22,11 @@ variable "vpc_peering_connections" {
 }
 
 variable "aws_region" {
-  
+
 }
 
 variable "availability_zones" {
   description = "List of availability zones to distribute subnets across"
   type        = list(string)
-  default     = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d",] 
+  default     = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d", ]
 }
