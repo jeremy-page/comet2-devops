@@ -8,8 +8,8 @@ resource "aws_vpc" "comet_vpc" {
 }
 
 resource "aws_internet_gateway" "comet_tgw" {
-  depends_on = [ aws_vpc.comet_vpc ]
-  for_each = { for k, v in var.vpcs : k => v if v.needs_igw }
+  depends_on = [aws_vpc.comet_vpc]
+  for_each   = { for k, v in var.vpcs : k => v if v.needs_igw }
 
   vpc_id = aws_vpc.comet_vpc[each.key].id
 
@@ -21,8 +21,8 @@ resource "aws_internet_gateway" "comet_tgw" {
 
 
 resource "aws_vpc_peering_connection" "comet_vpc_peering" {
-  depends_on = [ aws_vpc.comet_vpc ]
-  for_each = { for conn in var.vpc_peering_connections : "${conn.requester}-${conn.accepter}" => conn }
+  depends_on = [aws_vpc.comet_vpc]
+  for_each   = { for conn in var.vpc_peering_connections : "${conn.requester}-${conn.accepter}" => conn }
 
   vpc_id      = aws_vpc.comet_vpc[each.value.requester].id
   peer_vpc_id = aws_vpc.comet_vpc[each.value.accepter].id
@@ -35,20 +35,20 @@ resource "aws_vpc_peering_connection" "comet_vpc_peering" {
 
 
 resource "aws_route" "peering_routes" {
-  depends_on = [ aws_vpc.comet_vpc ]
-  for_each = { for conn in var.vpc_peering_connections : "${conn.requester}-${conn.accepter}" => conn }
+  depends_on = [aws_vpc.comet_vpc]
+  for_each   = { for conn in var.vpc_peering_connections : "${conn.requester}-${conn.accepter}" => conn }
 
-  route_table_id         = aws_vpc.comet_vpc[each.value.requester].main_route_table_id
-  destination_cidr_block = aws_vpc.comet_vpc[each.value.accepter].cidr_block
+  route_table_id            = aws_vpc.comet_vpc[each.value.requester].main_route_table_id
+  destination_cidr_block    = aws_vpc.comet_vpc[each.value.accepter].cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.comet_vpc_peering[each.key].id
 }
 
 resource "aws_route" "peering_routes_reverse" {
-  depends_on = [ aws_vpc.comet_vpc ]
-  for_each = { for conn in var.vpc_peering_connections : "${conn.requester}-${conn.accepter}" => conn }
+  depends_on = [aws_vpc.comet_vpc]
+  for_each   = { for conn in var.vpc_peering_connections : "${conn.requester}-${conn.accepter}" => conn }
 
-  route_table_id         = aws_vpc.comet_vpc[each.value.accepter].main_route_table_id
-  destination_cidr_block = aws_vpc.comet_vpc[each.value.requester].cidr_block
+  route_table_id            = aws_vpc.comet_vpc[each.value.accepter].main_route_table_id
+  destination_cidr_block    = aws_vpc.comet_vpc[each.value.requester].cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.comet_vpc_peering[each.key].id
 }
 

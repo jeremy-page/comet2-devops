@@ -441,6 +441,24 @@ controller:
     - workflow-aggregator:600.vb_57cdd26fdd7
     - git:5.7.0
     - configuration-as-code:1932.v75cb_b_f1b_698d
+    # added
+    # - active-directory:2.60.3
+    # - ansible:1.596.1
+    # - ansicolor:2.145
+    # - artifactory:1.642.3
+    - blueocean:2.121.1
+    # - gerrit-code-review:2.54
+    # - ldap:1.651.3
+    # - sonar-gerrit:1.625.3
+    # - sonar-quality-gates:2.89.3
+    # - sonar:2.89.4
+    # - ssh:1.609.3
+    # - ssh-credentials:2.73.3
+    # - github-branch-source:2.4.2
+    # - pipeline-utility-steps:2.2.0
+    # - role-strategy:2.9.0
+    # - http_request:1.8.22
+
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies

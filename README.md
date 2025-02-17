@@ -1,25 +1,5 @@
  
-#### TERRAFORM
-# List of infrastructure that gets created
- - 3 VPCs. mgmt, prod and non-prod
- - 12 Subnets (2 Pub, 2 Priv for each VPC)
- - IGW for each VPC
- - NAT for each VPC
- - VPC Endpoints
- - VPC Peering betwen Mgmt <-> Prod and Mgmt <-> non-Prod
- - 3 EKS clusters mgmt, prod and non-prod
- - 3 EKS Nodegroups
- - 3 Launchtemplates
- - 3 Node Groups SGs for each nodegroup 
- - SG rules
-
 ## How to Run
-# if runninf with target paramter, modules should follow this order
-
-- network
-- eks
-- jenkins
-- jumphost
 
 ### Pre-Requisites
 
@@ -27,7 +7,7 @@ MacOS:
 1. Create an AWS profile for the Comet account , if you have other profiles stored in your .aws/credentials
 2. Configure AWS profile:
 ~~~~
-* export AWS_PROFILE=comet-black-admin
+* export AWS_PROFILE=<name_of_profile> e.g comet-black-admin
 * export AWS_SECRET_ACCESS_KEY=<secret key>
 * export AWS_SESSION_TOKEN=<session token>
 * export AWS_REGION=us-east-1
@@ -51,10 +31,35 @@ MacOS:
 ```
   aws s3api create-bucket -acl private -bucket <bucket-name>
 ```
-7. Change to the /terraform directory; terraform init; terraform plan
+7. Ensure you have a commet(icf-comet-cc.com)AWS R53 hosted zone for your account e.g black.icf-comet-cc.com
+
+8. RUN sh scripts/create.sh
+
+
+
+
+#### TERRAFORM
+# List of infrastructure that gets created
+ - 3 VPCs. mgmt, prod and non-prod
+ - 12 Subnets (2 Pub, 2 Priv for each VPC)
+ - IGW for each VPC
+ - NAT for each VPC
+ - VPC Endpoints
+ - VPC Peering betwen Mgmt <-> Prod and Mgmt <-> non-Prod
+ - 3 EKS clusters mgmt, prod and non-prod
+ - 3 EKS Nodegroups
+ - 3 Launchtemplates
+ - 3 Node Groups SGs for each nodegroup 
+ - SG rules
+ - R53 hosted zone
+ - ACM cert
+
+
+
+
 
 # After
-- update navy account with NS records for hosted zone
+- update navy account with NS records for hosted zone??
 
 
 
@@ -62,8 +67,6 @@ MacOS:
 
 ## Items to scripts (automate)
 
-# EKS
-- modify cluster via terraform to include pub subnets on cluster not LT or nodegroup
 
 # Jenkins
 - helm repo add jenkins https://charts.jenkins.io
