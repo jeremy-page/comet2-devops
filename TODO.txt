@@ -1,0 +1,2 @@
+Push Jenkins secret to SSM so it's usable in TF as a value
+Automate deployment steps & end to end test
