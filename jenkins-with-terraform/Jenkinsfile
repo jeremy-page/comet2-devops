@@ -6,8 +6,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo "Starting Build Stage"'
-                    sh 'uname -a'  // Check system info
-                    sh 'echo "Build complete!"'
+
                 }
             }
         }
@@ -16,8 +15,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo "Running Tests..."'
-                    sh 'ls -l'  // List files
-                    sh 'echo "Tests completed!"'
+
                 }
             }
         }
@@ -26,7 +24,6 @@ pipeline {
             steps {
                 script {
                     sh 'echo "Deploying Application..."'
-                    sh 'uptime'  // Show system uptime
                     sh 'echo "Deployment successful!"'
                 }
             }
