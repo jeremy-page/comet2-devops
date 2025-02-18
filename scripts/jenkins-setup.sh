@@ -166,6 +166,9 @@ echo "################################################################"
 echo "Jenkins Admin Password: $JENKINS_PASSWORD"
 echo "################################################################"
 
+# Wait for Jenkins to be ready
+sleep 30
+
 open "http://jenkins.black.icf-comet-cc.com"
 
 

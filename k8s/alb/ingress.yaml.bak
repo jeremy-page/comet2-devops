@@ -8,17 +8,17 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: jenkins-alb
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTPS":80}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:571600838838:certificate/8f15c881-5dc3-482b-b394-41b8b7367382
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:571600838838:certificate/6972a672-5371-4822-a3c8-33ebb15a68de
     alb.ingress.kubernetes.io/ssl-redirect: "443"
-    # alb.ingress.kubernetes.io/healthcheck-path: "/login"
-    # alb.ingress.kubernetes.io/healthcheck-interval-seconds: "30"
-    # alb.ingress.kubernetes.io/healthcheck-timeout-seconds: "5"
-    # alb.ingress.kubernetes.io/success-codes: "200-399"
+    alb.ingress.kubernetes.io/healthcheck-path: "/login?noRedirect"
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: "30"
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: "5"
+    alb.ingress.kubernetes.io/success-codes: "200-399"
     # alb.ingress.kubernetes.io/load-balancer-attributes: routing.http2.enabled=true
     alb.ingress.kubernetes.io/tags: "Environment=mgmt,Project=comet,App=jenkins"
     # alb.ingress.kubernetes.io/backend-protocol: HTTP
     # alb.ingress.kubernetes.io/target-group-attributes: stickiness.enabled=true,stickiness.lb_cookie.duration_seconds=3600
-    alb.ingress.kubernetes.io/subnets: subnet-04b02035ab8d50ab5,subnet-08f41086d69ba17b3
+    alb.ingress.kubernetes.io/subnets: subnet-09e803c8e90bd0d3a,subnet-0c490f9502b957b9d
 
 spec:
   ingressClassName: alb
